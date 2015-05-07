@@ -1,0 +1,290 @@
+﻿<UserControl x:Class="TheWayPOS.WPF_UI.View.ProductView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:viewmodel="clr-namespace:TheWayPOS.WPF_UI.ViewModel"
+             xmlns:common="clr-namespace:TheWayPOS.WPF_UI.Common.Util"
+             xmlns:cview="clr-namespace:TheWayPOS.WPF_UI.Common.View"
+             xmlns:view="clr-namespace:TheWayPOS.WPF_UI.View"
+             xmlns:mode="clr-namespace:TheWayPOS.Entities;assembly=TheWayPOS.Entities"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <dxmvvm:Interaction.Behaviors>
+        <dxwui:WinUIMessageBoxService/>
+        <dxwui:WinUIDialogService>
+            <dxwui:WinUIDialogService.ViewTemplate>
+                <DataTemplate>
+                    <view:ProductUmView/>
+                </DataTemplate>
+            </dxwui:WinUIDialogService.ViewTemplate>
+        </dxwui:WinUIDialogService>
+        <dx:WindowedDocumentUIService WindowType="dxwui:WinUIDialogWindow">
+                <dx:WindowedDocumentUIService.WindowStyle>
+                    <Style TargetType="dxwui:WinUIDialogWindow">
+                        <Setter Property="ShowTitle" Value="False"/>
+                    </Style>
+                </dx:WindowedDocumentUIService.WindowStyle>
+        </dx:WindowedDocumentUIService>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnLoadedCommand}" />
+    </dxmvvm:Interaction.Behaviors>
+    <dxmvvm:Interaction.Triggers>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnLoadedCommand}"/>
+    </dxmvvm:Interaction.Triggers>
+    <UserControl.Resources>
+        <common:IntToDoubleConverter x:Key="intToDoubleConverter"/>
+        <common:MyanNumToEngNumConverter x:Key="MyanNumtoEngNumConverter"/>
+        <common:ProductUmApplyCountConverter x:Key="ProductUmApplyCountConverter"/>
+        <dxmvvm:ObjectToObjectConverter x:Key="selectionStateToVisibilityConverter" DefaultTarget="Visible">
+            <dxmvvm:MapItem Source="None" Target="Hidden"/>
+        </dxmvvm:ObjectToObjectConverter>
+        <common:TextSingleLineConverter x:Key="TextSingleLineConverter" />
+        <Style x:Key="cellButton" TargetType="Button">
+            <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource AncestorType=dxg:RowControl}, Path=SelectionState, Converter={StaticResource selectionStateToVisibilityConverter}}" />
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Width" Value="71" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="AppBarButtonStyle" TargetType="dxwui:AppBarButton">
+            <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <dxwui:PageAdornerControl BackCommand="{Binding BackCommand}" Header="{Binding ProductName}" FontSize="13" Foreground="#FF646464">
+            <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5,-7,0,0">
+                        <TextBlock Text="PRODUCT" FontSize="18" Foreground="#FF806464"/>
+                        <TextBlock Text="{Binding}" Margin="7,0,0,0" FontSize="16" Foreground="{StaticResource blueForegroundBrush}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+            <dxlc:LayoutControl Orientation="Vertical" Margin="65,-4,42,16">
+                <dxlc:LayoutControl.Resources>
+                    <Style TargetType="dxlc:LayoutItem">
+                        <Setter Property="ElementSpace" Value="38" />
+                    </Style>
+                    <Style x:Key="InnerLayoutGroup" TargetType="dxlc:LayoutGroup" />
+                    <Style TargetType="dxlc:LayoutGroup">
+                        <Setter Property="ItemSpace" Value="18" />
+                    </Style>
+                    <Style x:Key="VerticalLayoutGroup" TargetType="dxlc:LayoutGroup">
+                        <Setter Property="ItemSpace" Value="14" />
+                    </Style>
+                    <Style TargetType="dxe:TextEdit">
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    </Style>
+                </dxlc:LayoutControl.Resources>
+                <dxlc:LayoutGroup VerticalAlignment="Top" Margin="0,0,0,15">
+                    <dxlc:LayoutGroup.Resources>
+                        <Style TargetType="dxlc:LayoutItem">
+                            <Setter Property="ElementSpace" Value="43" />
+                        </Style>
+                    </dxlc:LayoutGroup.Resources>
+                    <dxlc:LayoutGroup Orientation="Vertical" Style="{StaticResource InnerLayoutGroup}" VerticalAlignment="Top">
+                        <dxlc:LayoutItem Label="PRODUCT CODE">
+                            <dxe:TextEdit IsEnabled="False">
+                                <dxe:TextEdit.Style>
+                                    <Style TargetType="{x:Type dxe:TextEdit}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Mode}">
+                                                <DataTrigger.Value>
+                                                    <mode:Mode>Add</mode:Mode>
+                                                </DataTrigger.Value>
+                                                <Setter Property="EditValue" Value="အလိုအလျောက်ထုတ်ပေးသည်။"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Mode}">
+                                                <DataTrigger.Value>
+                                                    <mode:Mode>Edit</mode:Mode>
+                                                </DataTrigger.Value>
+                                                <Setter Property="EditValue" Value="{Binding ProductCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </dxe:TextEdit.Style>
+                            </dxe:TextEdit>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="PRODUCT NAME">
+                            <dxe:TextEdit EditValue="{Binding ProductName, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="COMPANY NAME">
+                            <dxe:ComboBoxEdit ValueMember="supplier_code" DisplayMember="supplier_name" EditValue="{Binding SupplierCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}" IsTextEditable="False" ItemsSource="{Binding Suppliers}">
+                            </dxe:ComboBoxEdit>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="CATEGORY NAME">
+                            <dxe:ComboBoxEdit ValueMember="category_code" DisplayMember="category_name" EditValue="{Binding ProductCategoryCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}" IsTextEditable="False" ItemsSource="{Binding ProductCategories}" />
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup Orientation="Vertical" Style="{StaticResource InnerLayoutGroup}" VerticalAlignment="Bottom">
+                        <dxlc:LayoutItem Label="BUYING PRICE">
+                            <dxe:TextEdit EditValue="{Binding BuyingPrice, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True, Converter={StaticResource MyanNumtoEngNumConverter}}" PreviewTextInput="NumberValidationTextBox" DataObject.Pasting="TextBoxPasting" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="PRICE BASED UM">
+                            <dxe:ComboBoxEdit ValueMember="um_code" DisplayMember="um_shortname" EditValue="{Binding BuyingPriceUmCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}" IsTextEditable="False" ItemsSource="{Binding Ums}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="DISCOUNT %">
+                            <dxe:TextEdit EditValue="{Binding DiscountPercentage, NotifyOnValidationError=True, NotifyOnSourceUpdated=True, Converter={StaticResource MyanNumtoEngNumConverter}}" PreviewTextInput="NumberValidationTextBox" DataObject.Pasting="TextBoxPasting" />
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                </dxlc:LayoutGroup>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,2">
+                    <StackPanel.Resources>
+                        <Style x:Key="radioButtonStyle" TargetType="RadioButton">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBlock Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" FontSize="13"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground" Value="{StaticResource grayForegroundBrush}" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Foreground" Value="{StaticResource blueForegroundBrush}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+                    <RadioButton Content="အသုံးပြုနိုင်သော ယူနစ်များ" Style="{StaticResource radioButtonStyle}" x:Name="tasksRadioButton" />
+                    <TextBlock Name="ProductUmValidationMessage" Foreground="#EA0606" FontSize="14">
+                        <TextBlock.Resources>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ProductUmViewModelCollection.ErrorFlag}">
+                                        <DataTrigger.Value>
+                                            true
+                                        </DataTrigger.Value>
+                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                        <Setter Property="Text" Value="{Binding ProductUmViewModelCollection.ErrorMessage}"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ProductUmViewModelCollection.ErrorFlag}">
+                                        <DataTrigger.Value>
+                                            false
+                                        </DataTrigger.Value>
+                                        <Setter Property="Visibility" Value="Hidden"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Resources>
+                    </TextBlock>
+                    <TextBlock Text=" | " Foreground="{StaticResource grayForegroundBrush}" FontSize="17"/>
+                    <RadioButton Content="အရောင်းမှတ်တမ်း" Style="{StaticResource radioButtonStyle}" x:Name="notesRadioButton" />
+                </StackPanel>
+                <dxlc:LayoutGroup VerticalAlignment="Stretch" Orientation="Vertical" View="Tabs" x:Name="tabs" MinHeight="400">
+                    <dxlc:LayoutGroup.TabsStyle>
+                        <Style TargetType="dx:DXTabControl">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="View">
+                                <Setter.Value>
+                                    <dx:TabControlScrollView HeaderLocation="None" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </dxlc:LayoutGroup.TabsStyle>
+                    <dxlc:LayoutGroup.Resources>
+                        <Style TargetType="dxg:TableView">
+                            <Setter Property="AutoWidth" Value="True"/>
+                            <Setter Property="ShowIndicator" Value="False"/>
+                            <Setter Property="ShowGroupPanel" Value="False"/>
+                            <Setter Property="AllowEditing" Value="False"/>
+                            <Setter Property="AllowBestFit" Value="True"/>
+                        </Style>
+                        <Style TargetType="dxg:GridColumn">
+                            <Setter Property="HorizontalHeaderContentAlignment" Value="Center"/>
+                        </Style>
+                    </dxlc:LayoutGroup.Resources>
+
+                    <dxlc:LayoutItem DataContext="{Binding ProductUmViewModelCollection}">
+                        <!--<dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnLoadedCommand}" />
+                        </dxmvvm:Interaction.Behaviors>-->
+                        <dxg:GridControl ItemsSource="{Binding Entities, Mode=OneWay}" SelectedItem="{Binding SelectedEntity}" HorizontalAlignment="Left" IsEnabled="True">
+                            <dxg:GridControl.View>
+                                <dxg:TableView 
+                                    AllowMoveColumnToDropArea="False"
+                                    AutoWidth="True"
+                                    IsColumnMenuEnabled="True" 
+                                    NavigationStyle="Cell"
+                                    VerticalScrollbarVisibility="Auto"
+                                    HorizontalAlignment="Center"
+                                    AllowEditing="True"
+                                    CellValueChanging="TableView_CellValueChanging"
+                                    >
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
+                            <dxg:GridControl.Columns>
+                                <dxg:GridColumn IsSmart="True" FieldName="IsApply" Header="အသုံးပြုမည်" AllowEditing="True" />
+                                <dxg:GridColumn IsSmart="True" FieldName="UmShortName" Header="ယူနစ်" />
+                                <dxg:GridColumn IsSmart="True" FieldName="Disposable" Header="ထပ်ခွဲလို့ရသည်" />
+                                <dxg:GridColumn IsSmart="True" FieldName="DisposedUmShortName" Header="အခွဲယူနစ်" />
+                                <dxg:GridColumn IsSmart="True" FieldName="DisposedUmQuantity" Header="အခွဲပမာဏ" AllowEditing="False">
+                                    <dxg:GridColumn.DisplayTemplate>
+                                        <ControlTemplate>
+                                            <Grid Margin="12,10,16,10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="41" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Margin="4,2,20,2" Text="{Binding Value}"/>
+                                                <Button Grid.Column="1" Content="Edit" Style="{StaticResource cellButton}"
+                                                                Command="{Binding View.DataContext.EditCommand}" CommandParameter="{Binding RowData.Row}"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </dxg:GridColumn.DisplayTemplate>
+                                </dxg:GridColumn>
+                            </dxg:GridControl.Columns>
+                        </dxg:GridControl>
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutControl>
+        </dxwui:PageAdornerControl>
+        <dxwui:AppBar Grid.Row="1" IsOpen="True" ItemSpacing="5" IsBackButtonEnabled="False" IsExitButtonEnabled="False">
+            <dxmvvm:Interaction.Behaviors>
+                <cview:AppBarCancelClosingBehavior/>
+            </dxmvvm:Interaction.Behaviors>
+            <dxwui:AppBarButton Cursor="Hand" Command="{Binding UpdateCommand}" Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Toolbar/Save.png">
+                <dxwui:AppBarButton.Style>
+                    <Style TargetType="{x:Type dxwui:AppBarButton}" BasedOn="{StaticResource AppBarButtonBaseStyle}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Mode}">
+                                <DataTrigger.Value>
+                                    <mode:Mode>Add</mode:Mode>
+                                </DataTrigger.Value>
+                                <Setter Property="Label" Value="Add"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Mode}">
+                                <DataTrigger.Value>
+                                    <mode:Mode>Edit</mode:Mode>
+                                </DataTrigger.Value>
+                                <Setter Property="Label" Value="Save"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </dxwui:AppBarButton.Style>
+            </dxwui:AppBarButton>
+            <dxwui:AppBarButton Label="Cancel" Cursor="Hand" Command="{Binding CancelCommand}" Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Toolbar/Cancel.png"/>
+            <dxwui:AppBarSeparator/>
+            <dxwui:AppBarButton Label="Reports" Cursor="Hand" Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Toolbar/Reports.png" Command="{Binding ShowPrintCommand}" CommandParameter="Profile" />
+            <dxwui:AppBarSeparator/>
+            <dxwui:AppBarButton Label="DeActivate" Cursor="Hand" Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Toolbar/Delete.png" Command="{Binding DeleteCommand}"/>
+        </dxwui:AppBar>
+    </Grid>
+
+</UserControl>

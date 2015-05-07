@@ -1,0 +1,239 @@
+﻿<dx:DXWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+    xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+    xmlns:vm="clr-namespace:TheWayPOS.WPF_UI.ViewModel"
+    xmlns:common="clr-namespace:TheWayPOS.WPF_UI.Common.View"
+    xmlns:converter="clr-namespace:TheWayPOS.WPF_UI.Common.Util"
+    mc:Ignorable="d"
+    x:Class="TheWayPOS.WPF_UI.View.MainView"
+    Title="The Way Point of Sale System"
+    WindowStartupLocation="CenterScreen" 
+    UseLayoutRounding="True" WindowState="Maximized"
+    Icon="/TheWayPOS.WPF_UI;component/Images/Subway.png" Width="1094"
+    >
+
+    <dx:DXWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Style\MainMenuStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type dxnav:TileBarItem}" x:Key="TileBarItemStyleBase">
+                <Setter Property="Content" Value="{Binding Caption}"/>
+                <Setter Property="Command" Value="{Binding NavigateCommand}"/>
+            </Style>
+
+            <Style TargetType="{x:Type dxnav:TileBarItem}" BasedOn="{StaticResource TileBarItemStyleBase}" x:Key="TileBarItemStyleExtended">
+                <Setter Property="dxnav:TileBar.GroupHeader" Value="{Binding Group}"/>
+                <!--<Setter Property="TileGlyph" Value="{Binding GlyphUri, Converter={converter:StringToImageConverter}}" />-->
+                <Setter Property="AllowGlyphTheming" Value="True"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsHasChildren}" Value="true">
+                        <Setter Property="FlyoutContent" Value="{Binding Children}"/>
+                        <Setter Property="FlyoutContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <dxnav:TileBar ItemsSource="{Binding}" ItemContainerStyle="{StaticResource TileBarItemStyleBase}" ItemColorMode="Inverted"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </dx:DXWindow.Resources>
+
+    <dx:DXWindow.DataContext>
+        <!-- Declaratively create an instance of our Album View Model-->
+        <vm:MainViewModel />
+    </dx:DXWindow.DataContext>
+
+    <dx:BackgroundPanel>
+        <DockPanel Background="#FFD1CBCB">
+            <common:DpiResizingPanel DockPanel.Dock="Top">
+                <dxnav:TileNavPane DockPanel.Dock="Top">
+                    <dxnav:TileNavPane.NavButtons>
+                        <dxnav:NavButton Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Window/navButtonHelp.Glyph.png" AllowGlyphTheming="True" HorizontalAlignment="Right" Padding="12,4" Command="{Binding LinksViewModel.AboutCommand}"/>
+                        <dxnav:NavButton Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Window/navButtonClose.Glyph.png" AllowGlyphTheming="True" HorizontalAlignment="Right" Padding="12,4" />
+                    </dxnav:TileNavPane.NavButtons>
+                </dxnav:TileNavPane>
+            </common:DpiResizingPanel>
+            <common:DpiResizingPanel DockPanel.Dock="Top">
+
+                <dxnav:TileBar ItemSpacing="5" Background="#FFE8E8E8" Padding="0,48,0,27" 
+                               DockPanel.Dock="Top" Height="100" VerticalAlignment="Top" FontFamily="Myanmar Text" 
+                               FontSize="13" >
+                    <dxnav:TileBar.ItemContainerStyle>
+                        <Style TargetType="dxnav:TileBarItem">
+                            <Setter Property="ShowFlyoutButton" Value="True"/>
+                            <Setter Property="Height" Value="50" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter Property="Padding" Value="8" />
+                            <Setter Property="Width" Value="auto" />
+                        </Style>
+                    </dxnav:TileBar.ItemContainerStyle>
+
+                    <dxnav:TileBarItem dxnav:TileBar.GroupHeader="Master Records">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/Menu/Products.png" Stretch="None" />
+                            <TextBlock Padding="10, 3, 8, 0">ပစ္စည်းများ</TextBlock>
+                        </StackPanel>
+                        <dxnav:TileBarItem.FlyoutContent>
+                            <dxnav:TileBar Style="{StaticResource SubMenuStyle}">
+                                <dxnav:TileBarItem Width="auto" Command="{Binding ShowAddNewProductCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/TheWayPOS.WPF_UI;component/Images/Menu/Add.png" Stretch="Uniform" />
+                                        <TextBlock Padding="10, 3, 8, 0">ပစ္စည်းအသစ် ထည့်သွင်းရန်</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                                <dxnav:TileBarItem Width="auto" Command="{Binding ShowProductListCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/TheWayPOS.WPF_UI;component/Images/Menu/List.png" Stretch="Uniform" />
+                                        <TextBlock Padding="10, 3, 8, 0">ပစ္စည်းစာရင်း</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                            </dxnav:TileBar>
+                        </dxnav:TileBarItem.FlyoutContent>
+                    </dxnav:TileBarItem>
+
+                    <dxnav:TileBarItem Width="auto">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/Menu/Sales.png" Stretch="None" />
+                            <TextBlock Padding="10, 3, 8, 0">ပစ္စည်း နှင့် သက်ဆိုင်ရာ</TextBlock>
+                        </StackPanel>
+                        <dxnav:TileBarItem.FlyoutContent>
+                            <dxnav:TileBar Style="{StaticResource SubMenuStyle}">
+                                <dxnav:TileBarItem Width="auto" Command="{Binding ShowProductCategoryListCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/TheWayPOS.WPF_UI;component/Images/Menu/Configure.png" Stretch="Fill" />
+                                        <TextBlock Padding="10, 3, 8, 0">ပစ္စည်း အမျိုးအစား</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                                <dxnav:TileBarItem Width="auto" Command="{Binding ShowUmListCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="../Images/Menu/InvoiceList.png" Stretch="Fill" />
+                                        <TextBlock Padding="10, 3, 8, 0">အသုံးပြုမှု ယူနစ်</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                            </dxnav:TileBar>
+                        </dxnav:TileBarItem.FlyoutContent>
+                    </dxnav:TileBarItem>
+
+                    <dxnav:TileBarItem Command="{Binding ShowAddNewProductCommand}" Width="auto">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/Menu/Customers.png" Stretch="None" />
+                            <TextBlock Padding="10, 3, 8, 0">ကုမ္ပဏီ နှင့် အရောင်းဆိုင်များ</TextBlock>
+                        </StackPanel>
+                        <dxnav:TileBarItem.FlyoutContent>
+                            <dxnav:TileBar Style="{StaticResource SubMenuStyle}">
+                                <dxnav:TileBarItem Command="{Binding ShowAddNewSupplierCommand}" Width="auto">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/TheWayPOS.WPF_UI;component/Images/Menu/Add.png" Stretch="Uniform" />
+                                        <TextBlock Padding="10, 3, 8, 0">အသစ် ထည့်သွင်းရန်</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                                <dxnav:TileBarItem Command="{Binding ShowSupplierListCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/TheWayPOS.WPF_UI;component/Images/Menu/Company.png" Stretch="Fill" />
+                                        <TextBlock Padding="10, 3, 8, 0">ကုမ္ပဏီ စာရင်း</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                            </dxnav:TileBar>
+                        </dxnav:TileBarItem.FlyoutContent>
+                    </dxnav:TileBarItem>
+
+                    <dxnav:TileBarItem dxnav:TileBar.GroupHeader="Transaction Records" Width="auto">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/Menu/Pen.png" Stretch="Uniform" Width="24" />
+                            <TextBlock Padding="10, 3, 8, 0">အဝယ်အော်ဒါ</TextBlock>
+                        </StackPanel>
+                        <dxnav:TileBarItem.FlyoutContent>
+                            <dxnav:TileBar Style="{StaticResource SubMenuStyle}">
+                                <dxnav:TileBarItem Command="{Binding ShowPurchaseOrderCommand}" Width="auto">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/TheWayPOS.WPF_UI;component/Images/Menu/Configure.png" Stretch="Fill" />
+                                        <TextBlock Padding="10, 3, 8, 0">အ၀ယ်အော်ဒါ အသစ်ဖွင့်ရန်</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                                <dxnav:TileBarItem>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/TheWayPOS.WPF_UI;component/Images/Menu/InvoiceList.png" Stretch="Fill" />
+                                        <TextBlock Padding="10, 3, 8, 0">အော်ဒါ စာရင်း</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                            </dxnav:TileBar>
+                        </dxnav:TileBarItem.FlyoutContent>
+                    </dxnav:TileBarItem>
+
+                    <dxnav:TileBarItem Width="auto">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/Menu/Sales.png" Stretch="None" />
+                            <TextBlock Padding="10, 3, 8, 0">အရောင်းအော်ဒါ</TextBlock>
+                        </StackPanel>
+                        <dxnav:TileBarItem.FlyoutContent>
+                            <dxnav:TileBar Style="{StaticResource SubMenuStyle}">
+                                <dxnav:TileBarItem Width="auto">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/TheWayPOS.WPF_UI;component/Images/Menu/Configure.png" Stretch="Fill" />
+                                        <TextBlock Padding="10, 3, 8, 0">အရောင်းအော်ဒါ အသစ်ဖွင့်ရန်</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                                <dxnav:TileBarItem Width="auto">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="../Images/Menu/InvoiceList.png" Stretch="Fill" />
+                                        <TextBlock Padding="10, 3, 8, 0">အော်ဒါ စာရင်း</TextBlock>
+                                    </StackPanel>
+                                </dxnav:TileBarItem>
+                            </dxnav:TileBar>
+                        </dxnav:TileBarItem.FlyoutContent>
+                    </dxnav:TileBarItem>
+
+                    <dxnav:TileBarItem Width="auto">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/Menu/Tasks.png" Stretch="None" />
+                            <TextBlock Padding="10, 3, 8, 0">ဂိုဒေါင်</TextBlock>
+                        </StackPanel>
+                    </dxnav:TileBarItem>
+
+                    <dxnav:TileBarItem Width="auto">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/Menu/Opportunities.png" Stretch="None" />
+                            <TextBlock Padding="10, 3, 8, 0">အစီရင်ခံစာ</TextBlock>
+                        </StackPanel>
+                    </dxnav:TileBarItem>
+                    
+                </dxnav:TileBar>
+
+
+            </common:DpiResizingPanel>
+
+            <dxwui:NavigationFrame x:Name="DeExpressNavigationPane" AnimationType="None" AnimationSpeedRatio="3">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxwuin:FrameDocumentUIService Name="FrameDocumentUIService">
+                        <dxwuin:FrameDocumentUIService.PageAdornerControlStyle>
+                            <Style TargetType="dxwui:PageAdornerControl">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="dxwui:PageAdornerControl">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </dxwuin:FrameDocumentUIService.PageAdornerControlStyle>
+                    </dxwuin:FrameDocumentUIService>
+                </dxmvvm:Interaction.Behaviors>
+                <Image Height="100" Width="100"/>
+            </dxwui:NavigationFrame>
+        </DockPanel>
+    </dx:BackgroundPanel>
+</dx:DXWindow>

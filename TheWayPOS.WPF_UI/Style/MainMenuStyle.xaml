@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation">
+
+    <Style TargetType="dxnav:TileBarItem" x:Key="SubMenuItemStyle">
+        <Setter Property="ShowFlyoutButton" Value="True"/>
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontFamily" Value="Myanmar Text"/>
+        <Setter Property="Width" Value="auto" />
+    </Style>
+
+    <Style TargetType="dxnav:TileBar" x:Key="SubMenuStyle">
+        <Style.Resources>
+            <Style TargetType="dxnav:TileBarItem" BasedOn="{StaticResource SubMenuItemStyle}" />
+        </Style.Resources>
+    </Style>
+
+</ResourceDictionary>

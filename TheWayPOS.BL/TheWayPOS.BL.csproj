@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D6622FD9-2770-476B-A900-2A6D4DA724C1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TheWayPOS.BL</RootNamespace>
+    <AssemblyName>TheWayPOS.BL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessLogicError.cs" />
+    <Compile Include="BusinessLogicException.cs" />
+    <Compile Include="BusinessLogicManagerBase.cs" />
+    <Compile Include="BusinessManager\ProductArrivalManager.cs" />
+    <Compile Include="Interface\IValidator.cs" />
+    <Compile Include="BusinessManager\ProductCategoryManager.cs" />
+    <Compile Include="BusinessManager\ProductManager.cs" />
+    <Compile Include="BusinessManager\ProductUmManager.cs" />
+    <Compile Include="BusinessManager\PurchaseOrderManager.cs" />
+    <Compile Include="BusinessManager\SupplierCategoryManager.cs" />
+    <Compile Include="Validator\ProductCategoryValidator.cs" />
+    <Compile Include="Validator\ProductUmValidator.cs" />
+    <Compile Include="Validator\ProductValidator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BusinessManager\SupplierManager.cs" />
+    <Compile Include="BusinessManager\UmManager.cs" />
+    <Compile Include="Validator\PurchaseOrderDetailUmValidator.cs" />
+    <Compile Include="Validator\PurchaseOrderDetailValidator.cs" />
+    <Compile Include="Validator\PurchaseOrderValidator.cs" />
+    <Compile Include="Validator\SupplierValidator.cs" />
+    <Compile Include="Validator\UmValidator.cs" />
+    <Compile Include="Validator\ValidationHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TheWayPOS.DAL\TheWayPOS.DAL.csproj">
+      <Project>{22811d3b-c863-471d-b661-0de586ba3974}</Project>
+      <Name>TheWayPOS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TheWayPOS.Entities\TheWayPOS.Entities.csproj">
+      <Project>{fb066ce7-0606-439e-b3bb-53b280cbaa52}</Project>
+      <Name>TheWayPOS.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

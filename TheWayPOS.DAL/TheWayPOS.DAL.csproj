@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{22811D3B-C863-471D-B661-0DE586BA3974}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TheWayPOS.DAL</RootNamespace>
+    <AssemblyName>TheWayPOS.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DomainInterfaces\IProductArrivalManager.cs" />
+    <Compile Include="DomainInterfaces\IProductCategoryManager.cs" />
+    <Compile Include="DomainInterfaces\IPurchaseOrderDetailManager.cs" />
+    <Compile Include="DomainInterfaces\IPurchaseOrderDetailUmManager.cs" />
+    <Compile Include="DomainInterfaces\IPurchaseOrderHeaderManager.cs" />
+    <Compile Include="DomainInterfaces\ISupplierCategoryManager.cs" />
+    <Compile Include="DomainInterfaces\ISupplierManager.cs" />
+    <Compile Include="DomainInterfaces\IUmManager.cs" />
+    <Compile Include="EfDomainManagers\DomainBase.cs" />
+    <Compile Include="EfDomainManagers\ProductArrivalManager.cs" />
+    <Compile Include="EfDomainManagers\ProductCategoryManager.cs" />
+    <Compile Include="EfDomainManagers\Products_UmManager.cs" />
+    <Compile Include="EfDomainManagers\PurchaseOrderDetailManager.cs" />
+    <Compile Include="EfDomainManagers\PurchaseOrderHeaderManager.cs" />
+    <Compile Include="EfDomainManagers\SupplierCategoryManager.cs" />
+    <Compile Include="EfDomainManagers\SupplierManager.cs" />
+    <Compile Include="EfDomainManagers\UmManager.cs" />
+    <Compile Include="EntityFrameworkManager.cs" />
+    <Compile Include="FactoryManager.cs" />
+    <Compile Include="GenericInterfaces\IDomainManager.cs" />
+    <Compile Include="GenericInterfaces\IDataManager.cs" />
+    <Compile Include="DomainInterfaces\IProductManager.cs" />
+    <Compile Include="EfDomainManagers\ProductManager.cs" />
+    <Compile Include="DomainInterfaces\IProducts_UmManager.cs" />
+    <Compile Include="IUnitOfWorkFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TWPModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TWPModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TWPModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TWPModel.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <Compile Include="EfDomainManagers\PurchaseOrderDetailUmManager.cs" />
+    <None Include="packages.config" />
+    <EntityDeploy Include="TWPModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TWPModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="TWPModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TWPModel.Context.cs</LastGenOutput>
+      <DependentUpon>TWPModel.edmx</DependentUpon>
+    </None>
+    <None Include="TWPModel.edmx.diagram">
+      <DependentUpon>TWPModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TheWayPOS.Entities\TheWayPOS.Entities.csproj">
+      <Project>{fb066ce7-0606-439e-b3bb-53b280cbaa52}</Project>
+      <Name>TheWayPOS.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

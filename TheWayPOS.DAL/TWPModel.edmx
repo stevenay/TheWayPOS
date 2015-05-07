@@ -1,0 +1,955 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TWPDbContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ProductArrivals">
+          <Key>
+            <PropertyRef Name="product_arrival_code" />
+          </Key>
+          <Property Name="product_arrival_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_arrival_description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductCategories">
+          <Key>
+            <PropertyRef Name="category_code" />
+          </Key>
+          <Property Name="category_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="status" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="product_code" />
+          </Key>
+          <Property Name="product_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="product_category_code" Type="int" />
+          <Property Name="buying_price" Type="int" Nullable="false" />
+          <Property Name="buying_price_um_code" Type="int" />
+          <Property Name="discount_percentage" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="retail_price" Type="int" />
+          <Property Name="wholesale_price" Type="int" />
+          <Property Name="supplier_code" Type="int" />
+          <Property Name="stock_quantity" Type="int" />
+          <Property Name="status" Type="nchar" MaxLength="8" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Products_Ums">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_code" Type="int" Nullable="false" />
+          <Property Name="um_code" Type="int" Nullable="false" />
+          <Property Name="disposed_um_code" Type="int" />
+          <Property Name="disposed_um_qty" Type="smallint" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderDetail_Ums">
+          <Key>
+            <PropertyRef Name="purchase_order_detail_um_id" />
+          </Key>
+          <Property Name="purchase_order_detail_um_id" Type="int" Nullable="false" />
+          <Property Name="purchase_order_detail_id" Type="int" Nullable="false" />
+          <Property Name="products_ums_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderDetails">
+          <Key>
+            <PropertyRef Name="purchase_order_detail_id" />
+          </Key>
+          <Property Name="purchase_order_detail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="purchase_order_code" Type="int" Nullable="false" />
+          <Property Name="supplier_code" Type="int" Nullable="false" />
+          <Property Name="product_code" Type="int" Nullable="false" />
+          <Property Name="buying_price" Type="int" Nullable="false" />
+          <Property Name="buying_price_um_code" Type="int" Nullable="false" />
+          <Property Name="discount_percentage" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="line_total" Type="int" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderHeaders">
+          <Key>
+            <PropertyRef Name="purchase_order_code" />
+          </Key>
+          <Property Name="purchase_order_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_code" Type="int" Nullable="false" />
+          <Property Name="product_arrival_code" Type="int" Nullable="false" />
+          <Property Name="order_date" Type="datetime" />
+          <Property Name="amount" Type="int" />
+          <Property Name="installment" Type="int" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SupplierCategories">
+          <Key>
+            <PropertyRef Name="supplier_category_code" />
+          </Key>
+          <Property Name="supplier_category_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_category_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="supplier_code" />
+          </Key>
+          <Property Name="supplier_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="ntext" />
+          <Property Name="supplier_category_code" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Um">
+          <Key>
+            <PropertyRef Name="um_code" />
+          </Key>
+          <Property Name="um_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="um_shortname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="um_fullname" Type="nvarchar" MaxLength="255" />
+          <Property Name="disposable" Type="bit" Nullable="false" />
+          <Property Name="disposed_um_code" Type="int" />
+          <Property Name="disposed_um_qty" Type="smallint" />
+          <Property Name="depend_on_product" Type="bit" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Products_ProductCategories">
+          <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategories">
+              <PropertyRef Name="category_code" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="product_category_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="supplier_code" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="supplier_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="buying_price_um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Um_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Products_Ums" Type="Self.Products_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_code" />
+            </Principal>
+            <Dependent Role="Products_Ums">
+              <PropertyRef Name="product_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Um_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="1" />
+          <End Role="Products_Ums" Type="Self.Products_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="Products_Ums">
+              <PropertyRef Name="um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Ums_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="0..1" />
+          <End Role="Products_Ums" Type="Self.Products_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="Products_Ums">
+              <PropertyRef Name="disposed_um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDetail_Ums_Products_Ums">
+          <End Role="Products_Ums" Type="Self.Products_Ums" Multiplicity="1" />
+          <End Role="PurchaseOrderDetail_Ums" Type="Self.PurchaseOrderDetail_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products_Ums">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetail_Ums">
+              <PropertyRef Name="products_ums_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDetail_Ums_PurchaseOrderDetails">
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetails" Multiplicity="1" />
+          <End Role="PurchaseOrderDetail_Ums" Type="Self.PurchaseOrderDetail_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrderDetails">
+              <PropertyRef Name="purchase_order_detail_id" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetail_Ums">
+              <PropertyRef Name="purchase_order_detail_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDetails_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="product_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDetails_PurchaseOrderHeaders">
+          <End Role="PurchaseOrderHeaders" Type="Self.PurchaseOrderHeaders" Multiplicity="1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrderHeaders">
+              <PropertyRef Name="purchase_order_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="purchase_order_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDetails_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="buying_price_um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderHeaders_ProductArrivals">
+          <End Role="ProductArrivals" Type="Self.ProductArrivals" Multiplicity="1" />
+          <End Role="PurchaseOrderHeaders" Type="Self.PurchaseOrderHeaders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductArrivals">
+              <PropertyRef Name="product_arrival_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderHeaders">
+              <PropertyRef Name="product_arrival_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderHeaders_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+          <End Role="PurchaseOrderHeaders" Type="Self.PurchaseOrderHeaders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="supplier_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderHeaders">
+              <PropertyRef Name="supplier_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Suppliers_SupplierCategories">
+          <End Role="SupplierCategories" Type="Self.SupplierCategories" Multiplicity="0..1" />
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierCategories">
+              <PropertyRef Name="supplier_category_code" />
+            </Principal>
+            <Dependent Role="Suppliers">
+              <PropertyRef Name="supplier_category_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Um_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="0..1" />
+          <End Role="Um1" Type="Self.Um" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="Um1">
+              <PropertyRef Name="disposed_um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TWPDbContextStoreContainer">
+          <EntitySet Name="ProductArrivals" EntityType="Self.ProductArrivals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products_Ums" EntityType="Self.Products_Ums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrderDetail_Ums" EntityType="Self.PurchaseOrderDetail_Ums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeaders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplierCategories" EntityType="Self.SupplierCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Um" EntityType="Self.Um" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Products_ProductCategories" Association="Self.FK_Products_ProductCategories">
+            <End Role="ProductCategories" EntitySet="ProductCategories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Suppliers" Association="Self.FK_Products_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Um" Association="Self.FK_Products_Um">
+            <End Role="Um" EntitySet="Um" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Um_Products" Association="Self.FK_Products_Um_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Products_Ums" EntitySet="Products_Ums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Um_Um" Association="Self.FK_Products_Um_Um">
+            <End Role="Um" EntitySet="Um" />
+            <End Role="Products_Ums" EntitySet="Products_Ums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Ums_Um" Association="Self.FK_Products_Ums_Um">
+            <End Role="Um" EntitySet="Um" />
+            <End Role="Products_Ums" EntitySet="Products_Ums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDetail_Ums_Products_Ums" Association="Self.FK_PurchaseOrderDetail_Ums_Products_Ums">
+            <End Role="Products_Ums" EntitySet="Products_Ums" />
+            <End Role="PurchaseOrderDetail_Ums" EntitySet="PurchaseOrderDetail_Ums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDetail_Ums_PurchaseOrderDetails" Association="Self.FK_PurchaseOrderDetail_Ums_PurchaseOrderDetails">
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+            <End Role="PurchaseOrderDetail_Ums" EntitySet="PurchaseOrderDetail_Ums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDetails_Products" Association="Self.FK_PurchaseOrderDetails_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDetails_PurchaseOrderHeaders" Association="Self.FK_PurchaseOrderDetails_PurchaseOrderHeaders">
+            <End Role="PurchaseOrderHeaders" EntitySet="PurchaseOrderHeaders" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDetails_Um" Association="Self.FK_PurchaseOrderDetails_Um">
+            <End Role="Um" EntitySet="Um" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderHeaders_ProductArrivals" Association="Self.FK_PurchaseOrderHeaders_ProductArrivals">
+            <End Role="ProductArrivals" EntitySet="ProductArrivals" />
+            <End Role="PurchaseOrderHeaders" EntitySet="PurchaseOrderHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderHeaders_Suppliers" Association="Self.FK_PurchaseOrderHeaders_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="PurchaseOrderHeaders" EntitySet="PurchaseOrderHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suppliers_SupplierCategories" Association="Self.FK_Suppliers_SupplierCategories">
+            <End Role="SupplierCategories" EntitySet="SupplierCategories" />
+            <End Role="Suppliers" EntitySet="Suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Um_Um" Association="Self.FK_Um_Um">
+            <End Role="Um" EntitySet="Um" />
+            <End Role="Um1" EntitySet="Um" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TWPDbContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="category_code" />
+          </Key>
+          <Property Name="category_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_ProductCategories" FromRole="ProductCategories" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="product_code" />
+          </Key>
+          <Property Name="product_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_category_code" Type="Int32" />
+          <Property Name="buying_price" Type="Int32" Nullable="false" />
+          <Property Name="buying_price_um_code" Type="Int32" />
+          <Property Name="discount_percentage" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="retail_price" Type="Int32" />
+          <Property Name="wholesale_price" Type="Int32" />
+          <Property Name="supplier_code" Type="Int32" />
+          <Property Name="stock_quantity" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="8" FixedLength="true" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Products_ProductCategories" FromRole="Products" ToRole="ProductCategories" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_Products_Suppliers" FromRole="Products" ToRole="Suppliers" />
+          <NavigationProperty Name="Um" Relationship="Self.FK_Products_Um" FromRole="Products" ToRole="Um" />
+          <NavigationProperty Name="Products_Ums" Relationship="Self.FK_Products_Um_Products" FromRole="Products" ToRole="Products_Ums" />
+          <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK_PurchaseOrderDetails_Products" FromRole="Products" ToRole="PurchaseOrderDetails" />
+        </EntityType>
+        <EntityType Name="Products_Ums">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_code" Type="Int32" Nullable="false" />
+          <Property Name="um_code" Type="Int32" Nullable="false" />
+          <Property Name="disposed_um_code" Type="Int32" />
+          <Property Name="disposed_um_qty" Type="Int16" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Products_Um_Products" FromRole="Products_Ums" ToRole="Products" />
+          <NavigationProperty Name="Um" Relationship="Self.FK_Products_Um_Um" FromRole="Products_Ums" ToRole="Um" />
+          <NavigationProperty Name="Disposed_ProductUm" Relationship="Self.FK_Products_Ums_Um" FromRole="Products_Ums" ToRole="Um" />
+          <NavigationProperty Name="PurchaseOrderDetail_Ums" Relationship="TWPDbContext.FK_PurchaseOrderDetail_Ums_Products_Ums" FromRole="Products_Ums" ToRole="PurchaseOrderDetail_Ums" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderDetail">
+          <Key>
+            <PropertyRef Name="purchase_order_detail_id" />
+          </Key>
+          <Property Name="purchase_order_detail_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="purchase_order_code" Type="Int32" Nullable="false" />
+          <Property Name="supplier_code" Type="Int32" Nullable="false" />
+          <Property Name="product_code" Type="Int32" Nullable="false" />
+          <Property Name="buying_price" Type="Int32" Nullable="false" />
+          <Property Name="buying_price_um_code" Type="Int32" Nullable="false" />
+          <Property Name="discount_percentage" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="line_total" Type="Int32" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_PurchaseOrderDetails_Products" FromRole="PurchaseOrderDetails" ToRole="Products" />
+          <NavigationProperty Name="PurchaseOrderHeader" Relationship="Self.FK_PurchaseOrderDetails_PurchaseOrderHeaders" FromRole="PurchaseOrderDetails" ToRole="PurchaseOrderHeaders" />
+          <NavigationProperty Name="Um" Relationship="Self.FK_PurchaseOrderDetails_Um" FromRole="PurchaseOrderDetails" ToRole="Um" />
+          <NavigationProperty Name="PurchaseOrderDetail_Ums" Relationship="TWPDbContext.FK_PurchaseOrderDetail_Ums_PurchaseOrderDetails" FromRole="PurchaseOrderDetail" ToRole="PurchaseOrderDetail_Ums" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderHeader">
+          <Key>
+            <PropertyRef Name="purchase_order_code" />
+          </Key>
+          <Property Name="purchase_order_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_code" Type="Int32" Nullable="false" />
+          <Property Name="order_date" Type="DateTime" Precision="3" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="installment" Type="Int32" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK_PurchaseOrderDetails_PurchaseOrderHeaders" FromRole="PurchaseOrderHeaders" ToRole="PurchaseOrderDetails" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_PurchaseOrderHeaders_Suppliers" FromRole="PurchaseOrderHeaders" ToRole="Suppliers" />
+          <Property Name="product_arrival_code" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductArrival" Relationship="TWPDbContext.FK_PurchaseOrderHeaders_ProductArrivals" FromRole="PurchaseOrderHeader" ToRole="ProductArrival" />
+        </EntityType>
+        <EntityType Name="SupplierCategory">
+          <Key>
+            <PropertyRef Name="supplier_category_code" />
+          </Key>
+          <Property Name="supplier_category_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_category_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK_Suppliers_SupplierCategories" FromRole="SupplierCategories" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="supplier_code" />
+          </Key>
+          <Property Name="supplier_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="supplier_category_code" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Suppliers" FromRole="Suppliers" ToRole="Products" />
+          <NavigationProperty Name="PurchaseOrderHeaders" Relationship="Self.FK_PurchaseOrderHeaders_Suppliers" FromRole="Suppliers" ToRole="PurchaseOrderHeaders" />
+          <NavigationProperty Name="SupplierCategory" Relationship="Self.FK_Suppliers_SupplierCategories" FromRole="Suppliers" ToRole="SupplierCategories" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Um">
+          <Key>
+            <PropertyRef Name="um_code" />
+          </Key>
+          <Property Name="um_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="um_shortname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="um_fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="disposable" Type="Boolean" Nullable="false" />
+          <Property Name="disposed_um_code" Type="Int32" />
+          <Property Name="disposed_um_qty" Type="Int16" />
+          <Property Name="depend_on_product" Type="Boolean" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Um" FromRole="Um" ToRole="Products" />
+          <NavigationProperty Name="Products_Ums" Relationship="Self.FK_Products_Um_Um" FromRole="Um" ToRole="Products_Ums" />
+          <NavigationProperty Name="Products_Ums1" Relationship="Self.FK_Products_Ums_Um" FromRole="Um" ToRole="Products_Ums" />
+          <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK_PurchaseOrderDetails_Um" FromRole="Um" ToRole="PurchaseOrderDetails" />
+          <NavigationProperty Name="Um1" Relationship="Self.FK_Um_Um" FromRole="Um" ToRole="Um1" />
+          <NavigationProperty Name="Disposed_Um" Relationship="Self.FK_Um_Um" FromRole="Um1" ToRole="Um" />
+        </EntityType>
+        <Association Name="FK_Products_ProductCategories">
+          <End Role="ProductCategories" Type="Self.ProductCategory" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategories">
+              <PropertyRef Name="category_code" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="product_category_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Suppliers">
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="supplier_code" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="supplier_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="buying_price_um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Um_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Products_Ums" Type="Self.Products_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_code" />
+            </Principal>
+            <Dependent Role="Products_Ums">
+              <PropertyRef Name="product_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDetails_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="product_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="product_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Um_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="1" />
+          <End Role="Products_Ums" Type="Self.Products_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="Products_Ums">
+              <PropertyRef Name="um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Ums_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="0..1" />
+          <End Role="Products_Ums" Type="Self.Products_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="Products_Ums">
+              <PropertyRef Name="disposed_um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDetails_PurchaseOrderHeaders">
+          <End Role="PurchaseOrderHeaders" Type="Self.PurchaseOrderHeader" Multiplicity="1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrderHeaders">
+              <PropertyRef Name="purchase_order_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="purchase_order_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDetails_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="buying_price_um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderHeaders_Suppliers">
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="PurchaseOrderHeaders" Type="Self.PurchaseOrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="supplier_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderHeaders">
+              <PropertyRef Name="supplier_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Suppliers_SupplierCategories">
+          <End Role="SupplierCategories" Type="Self.SupplierCategory" Multiplicity="0..1" />
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierCategories">
+              <PropertyRef Name="supplier_category_code" />
+            </Principal>
+            <Dependent Role="Suppliers">
+              <PropertyRef Name="supplier_category_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Um_Um">
+          <End Role="Um" Type="Self.Um" Multiplicity="0..1" />
+          <End Role="Um1" Type="Self.Um" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Um">
+              <PropertyRef Name="um_code" />
+            </Principal>
+            <Dependent Role="Um1">
+              <PropertyRef Name="disposed_um_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Products_Ums" EntityType="Self.Products_Ums" />
+          <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetail" />
+          <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeader" />
+          <EntitySet Name="SupplierCategories" EntityType="Self.SupplierCategory" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Ums" EntityType="Self.Um" />
+          <AssociationSet Name="FK_Products_ProductCategories" Association="Self.FK_Products_ProductCategories">
+            <End Role="ProductCategories" EntitySet="ProductCategories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Suppliers" Association="Self.FK_Products_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Um" Association="Self.FK_Products_Um">
+            <End Role="Um" EntitySet="Ums" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Um_Products" Association="Self.FK_Products_Um_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Products_Ums" EntitySet="Products_Ums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDetails_Products" Association="Self.FK_PurchaseOrderDetails_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Um_Um" Association="Self.FK_Products_Um_Um">
+            <End Role="Um" EntitySet="Ums" />
+            <End Role="Products_Ums" EntitySet="Products_Ums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Ums_Um" Association="Self.FK_Products_Ums_Um">
+            <End Role="Um" EntitySet="Ums" />
+            <End Role="Products_Ums" EntitySet="Products_Ums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDetails_PurchaseOrderHeaders" Association="Self.FK_PurchaseOrderDetails_PurchaseOrderHeaders">
+            <End Role="PurchaseOrderHeaders" EntitySet="PurchaseOrderHeaders" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDetails_Um" Association="Self.FK_PurchaseOrderDetails_Um">
+            <End Role="Um" EntitySet="Ums" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderHeaders_Suppliers" Association="Self.FK_PurchaseOrderHeaders_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="PurchaseOrderHeaders" EntitySet="PurchaseOrderHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suppliers_SupplierCategories" Association="Self.FK_Suppliers_SupplierCategories">
+            <End Role="SupplierCategories" EntitySet="SupplierCategories" />
+            <End Role="Suppliers" EntitySet="Suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Um_Um" Association="Self.FK_Um_Um">
+            <End Role="Um" EntitySet="Ums" />
+            <End Role="Um1" EntitySet="Ums" />
+          </AssociationSet>
+          <EntitySet Name="ProductArrivals" EntityType="TWPDbContext.ProductArrival" />
+          <AssociationSet Name="FK_PurchaseOrderHeaders_ProductArrivals" Association="TWPDbContext.FK_PurchaseOrderHeaders_ProductArrivals">
+            <End Role="ProductArrival" EntitySet="ProductArrivals" />
+            <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeaders" />
+          </AssociationSet>
+          <EntitySet Name="PurchaseOrderDetail_Ums" EntityType="TWPDbContext.PurchaseOrderDetail_Ums" />
+          <AssociationSet Name="FK_PurchaseOrderDetail_Ums_Products_Ums" Association="TWPDbContext.FK_PurchaseOrderDetail_Ums_Products_Ums">
+            <End Role="Products_Ums" EntitySet="Products_Ums" />
+            <End Role="PurchaseOrderDetail_Ums" EntitySet="PurchaseOrderDetail_Ums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDetail_Ums_PurchaseOrderDetails" Association="TWPDbContext.FK_PurchaseOrderDetail_Ums_PurchaseOrderDetails">
+            <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetails" />
+            <End Role="PurchaseOrderDetail_Ums" EntitySet="PurchaseOrderDetail_Ums" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ProductArrival">
+          <Key>
+            <PropertyRef Name="product_arrival_code" />
+          </Key>
+          <Property Name="product_arrival_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_arrival_description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchaseOrderHeaders" Relationship="TWPDbContext.FK_PurchaseOrderHeaders_ProductArrivals" FromRole="ProductArrival" ToRole="PurchaseOrderHeader" />
+        </EntityType>
+        <Association Name="FK_PurchaseOrderHeaders_ProductArrivals">
+          <End Type="TWPDbContext.ProductArrival" Role="ProductArrival" Multiplicity="1" />
+          <End Type="TWPDbContext.PurchaseOrderHeader" Role="PurchaseOrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductArrival">
+              <PropertyRef Name="product_arrival_code" />
+            </Principal>
+            <Dependent Role="PurchaseOrderHeader">
+              <PropertyRef Name="product_arrival_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PurchaseOrderDetail_Ums">
+          <Key>
+            <PropertyRef Name="purchase_order_detail_um_id" />
+          </Key>
+          <Property Name="purchase_order_detail_um_id" Type="Int32" Nullable="false" />
+          <Property Name="purchase_order_detail_id" Type="Int32" Nullable="false" />
+          <Property Name="products_ums_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products_Ums" Relationship="TWPDbContext.FK_PurchaseOrderDetail_Ums_Products_Ums" FromRole="PurchaseOrderDetail_Ums" ToRole="Products_Ums" />
+          <NavigationProperty Name="PurchaseOrderDetail" Relationship="TWPDbContext.FK_PurchaseOrderDetail_Ums_PurchaseOrderDetails" FromRole="PurchaseOrderDetail_Ums" ToRole="PurchaseOrderDetail" />
+        </EntityType>
+        <Association Name="FK_PurchaseOrderDetail_Ums_Products_Ums">
+          <End Type="TWPDbContext.Products_Ums" Role="Products_Ums" Multiplicity="1" />
+          <End Type="TWPDbContext.PurchaseOrderDetail_Ums" Role="PurchaseOrderDetail_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products_Ums">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetail_Ums">
+              <PropertyRef Name="products_ums_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDetail_Ums_PurchaseOrderDetails">
+          <End Type="TWPDbContext.PurchaseOrderDetail" Role="PurchaseOrderDetail" Multiplicity="1" />
+          <End Type="TWPDbContext.PurchaseOrderDetail_Ums" Role="PurchaseOrderDetail_Ums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrderDetail">
+              <PropertyRef Name="purchase_order_detail_id" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetail_Ums">
+              <PropertyRef Name="purchase_order_detail_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TWPDbContextStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="TWPDbContext.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategories">
+                <ScalarProperty Name="category_code" ColumnName="category_code" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="TWPDbContext.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_category_code" ColumnName="product_category_code" />
+                <ScalarProperty Name="buying_price" ColumnName="buying_price" />
+                <ScalarProperty Name="buying_price_um_code" ColumnName="buying_price_um_code" />
+                <ScalarProperty Name="discount_percentage" ColumnName="discount_percentage" />
+                <ScalarProperty Name="retail_price" ColumnName="retail_price" />
+                <ScalarProperty Name="wholesale_price" ColumnName="wholesale_price" />
+                <ScalarProperty Name="supplier_code" ColumnName="supplier_code" />
+                <ScalarProperty Name="stock_quantity" ColumnName="stock_quantity" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products_Ums">
+            <EntityTypeMapping TypeName="TWPDbContext.Products_Ums">
+              <MappingFragment StoreEntitySet="Products_Ums">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="um_code" ColumnName="um_code" />
+                <ScalarProperty Name="disposed_um_code" ColumnName="disposed_um_code" />
+                <ScalarProperty Name="disposed_um_qty" ColumnName="disposed_um_qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrderDetails">
+            <EntityTypeMapping TypeName="TWPDbContext.PurchaseOrderDetail">
+              <MappingFragment StoreEntitySet="PurchaseOrderDetails">
+                <ScalarProperty Name="purchase_order_detail_id" ColumnName="purchase_order_detail_id" />
+                <ScalarProperty Name="purchase_order_code" ColumnName="purchase_order_code" />
+                <ScalarProperty Name="supplier_code" ColumnName="supplier_code" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="buying_price" ColumnName="buying_price" />
+                <ScalarProperty Name="buying_price_um_code" ColumnName="buying_price_um_code" />
+                <ScalarProperty Name="discount_percentage" ColumnName="discount_percentage" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="line_total" ColumnName="line_total" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrderHeaders">
+            <EntityTypeMapping TypeName="TWPDbContext.PurchaseOrderHeader">
+              <MappingFragment StoreEntitySet="PurchaseOrderHeaders">
+                <ScalarProperty Name="product_arrival_code" ColumnName="product_arrival_code" />
+                <ScalarProperty Name="purchase_order_code" ColumnName="purchase_order_code" />
+                <ScalarProperty Name="supplier_code" ColumnName="supplier_code" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="installment" ColumnName="installment" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplierCategories">
+            <EntityTypeMapping TypeName="TWPDbContext.SupplierCategory">
+              <MappingFragment StoreEntitySet="SupplierCategories">
+                <ScalarProperty Name="supplier_category_code" ColumnName="supplier_category_code" />
+                <ScalarProperty Name="supplier_category_name" ColumnName="supplier_category_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="TWPDbContext.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="supplier_code" ColumnName="supplier_code" />
+                <ScalarProperty Name="supplier_name" ColumnName="supplier_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="supplier_category_code" ColumnName="supplier_category_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TWPDbContext.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ums">
+            <EntityTypeMapping TypeName="TWPDbContext.Um">
+              <MappingFragment StoreEntitySet="Um">
+                <ScalarProperty Name="um_code" ColumnName="um_code" />
+                <ScalarProperty Name="um_shortname" ColumnName="um_shortname" />
+                <ScalarProperty Name="um_fullname" ColumnName="um_fullname" />
+                <ScalarProperty Name="disposable" ColumnName="disposable" />
+                <ScalarProperty Name="disposed_um_code" ColumnName="disposed_um_code" />
+                <ScalarProperty Name="disposed_um_qty" ColumnName="disposed_um_qty" />
+                <ScalarProperty Name="depend_on_product" ColumnName="depend_on_product" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductArrivals">
+            <EntityTypeMapping TypeName="TWPDbContext.ProductArrival">
+              <MappingFragment StoreEntitySet="ProductArrivals">
+                <ScalarProperty Name="product_arrival_description" ColumnName="product_arrival_description" />
+                <ScalarProperty Name="product_arrival_code" ColumnName="product_arrival_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrderDetail_Ums">
+            <EntityTypeMapping TypeName="TWPDbContext.PurchaseOrderDetail_Ums">
+              <MappingFragment StoreEntitySet="PurchaseOrderDetail_Ums">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="products_ums_id" ColumnName="products_ums_id" />
+                <ScalarProperty Name="purchase_order_detail_id" ColumnName="purchase_order_detail_id" />
+                <ScalarProperty Name="purchase_order_detail_um_id" ColumnName="purchase_order_detail_um_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="TheWayPOS.WPF_UI.View.ProductUmView"
+             xmlns="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:viewmodel="clr-namespace:TheWayPOS.WPF_UI.ViewModel"
+             xmlns:local="clr-namespace:TheWayPOS.WPF_UI.Common.View"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <system:Boolean x:Key="True">True</system:Boolean>
+        <system:Boolean x:Key="False">False</system:Boolean>
+    </UserControl.Resources>
+    <dxmvvm:Interaction.Behaviors>
+        <dxwui:WinUIMessageBoxService/>
+        <dxmvvm:CurrentWindowService Window="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+    </dxmvvm:Interaction.Behaviors>
+    <DockPanel Width="550">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left">
+            <TextBlock Text="Edit Um" FontSize="18" Margin="0,0,5,0"/>
+            <TextBlock Text="{Binding ProductName}" FontSize="18" Foreground="#FF646464"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20,0,0">
+            <TextBlock FontSize="15" Foreground="#FF646464">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="တစ် {0} မှာ ဘယ် Unit of Measurement ဘယ်လောက်ပါလဲ ?">
+                        <Binding Path="UmShortName"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="Width" Value="76"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="FontSize" Value="13"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button Content="Confirm" Command="{Binding ConfirmCommand}" Margin="0,0,16,0"/>
+            <!--<Button Content="Reset" Command="{Binding ExitCommand}" CommandParameter="{StaticResource True}"/>-->
+        </StackPanel>
+        <dxlc:LayoutControl Orientation="Horizontal" ItemSpace="57" Margin="0,28">
+            <dxlc:LayoutControl.Resources>
+                <Style x:Key="InnerLayoutGroup" TargetType="dxlc:LayoutGroup" />
+                <Style TargetType="dxlc:LayoutGroup">
+                    <Setter Property="ItemSpace" Value="15" />
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Height" Value="38"/>
+                </Style>
+            </dxlc:LayoutControl.Resources>
+            <dxmvvm:Interaction.Behaviors>
+                <!--<dxmvvm:ValidationErrorsHostBehavior HasErrors="{Binding ValidationErrors, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />-->
+            </dxmvvm:Interaction.Behaviors>
+            <dxlc:LayoutGroup Orientation="Vertical" HorizontalAlignment="Left" MinWidth="320" Width="auto">
+                <dxlc:LayoutGroup Orientation="Vertical" Style="{StaticResource InnerLayoutGroup}">
+                    <dxlc:LayoutItem Label="အခွဲ တိုင်းတာမှုစနစ်" FontSize="13">
+                        <dxe:ComboBoxEdit IsTextEditable="False" ValueMember="um_code" DisplayMember="um_shortname" EditValue="{Binding DisposedUmCode, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" ItemsSource="{Binding LookUpUms}"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="ပါဝင်သော အရေအတွက်" FontSize="13">
+                        <dxe:TextEdit EditValue="{Binding DisposedUmQuantity, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>
+    </DockPanel>
+</UserControl>

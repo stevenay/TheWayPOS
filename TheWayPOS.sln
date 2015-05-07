@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWayPOS.WPF_UI", "TheWayPOS.WPF_UI\TheWayPOS.WPF_UI.csproj", "{103F4B38-7E52-4907-A5B7-678D1F7D2239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWayPOS.DAL", "TheWayPOS.DAL\TheWayPOS.DAL.csproj", "{22811D3B-C863-471D-B661-0DE586BA3974}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWayPOS.Entities", "TheWayPOS.Entities\TheWayPOS.Entities.csproj", "{FB066CE7-0606-439E-B3BB-53B280CBAA52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWayPOS.BL", "TheWayPOS.BL\TheWayPOS.BL.csproj", "{D6622FD9-2770-476B-A900-2A6D4DA724C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWayPOS.DALTest", "TheWayPOS.DALTest\TheWayPOS.DALTest.csproj", "{73FCCF0D-ECF9-4256-8CA4-63D0F267B9A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{103F4B38-7E52-4907-A5B7-678D1F7D2239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{103F4B38-7E52-4907-A5B7-678D1F7D2239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{103F4B38-7E52-4907-A5B7-678D1F7D2239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{103F4B38-7E52-4907-A5B7-678D1F7D2239}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22811D3B-C863-471D-B661-0DE586BA3974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22811D3B-C863-471D-B661-0DE586BA3974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22811D3B-C863-471D-B661-0DE586BA3974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22811D3B-C863-471D-B661-0DE586BA3974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB066CE7-0606-439E-B3BB-53B280CBAA52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB066CE7-0606-439E-B3BB-53B280CBAA52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB066CE7-0606-439E-B3BB-53B280CBAA52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB066CE7-0606-439E-B3BB-53B280CBAA52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6622FD9-2770-476B-A900-2A6D4DA724C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6622FD9-2770-476B-A900-2A6D4DA724C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6622FD9-2770-476B-A900-2A6D4DA724C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6622FD9-2770-476B-A900-2A6D4DA724C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73FCCF0D-ECF9-4256-8CA4-63D0F267B9A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73FCCF0D-ECF9-4256-8CA4-63D0F267B9A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73FCCF0D-ECF9-4256-8CA4-63D0F267B9A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73FCCF0D-ECF9-4256-8CA4-63D0F267B9A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

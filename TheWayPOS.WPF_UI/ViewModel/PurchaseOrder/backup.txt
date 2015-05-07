@@ -1,0 +1,163 @@
+﻿<!--<dxmvvm:Interaction.Behaviors>
+        <dxwui:WinUIMessageBoxService/>
+        
+        <dx:WindowedDocumentUIService WindowType="dxwui:WinUIDialogWindow">
+            <dx:WindowedDocumentUIService.WindowStyle>
+                <Style TargetType="dxwui:WinUIDialogWindow">
+                    <Setter Property="ShowTitle" Value="False"/>
+                </Style>
+            </dx:WindowedDocumentUIService.WindowStyle>
+        </dx:WindowedDocumentUIService>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnLoadedCommand}" />
+    </dxmvvm:Interaction.Behaviors>
+
+    <UserControl.Resources>
+        <ControlTemplate x:Key="CameraSettingsPopupTemplate">
+            <DockPanel Width="400" Margin="10" >
+                --><!--<dxe:ListBoxEdit ItemsSource="{Binding ListItems}" SelectedIndexChanged="ListBoxEdit_SelectedIndexChanged"/>-->
+                <!--<dxe:ButtonEdit Text="Frank"/>-->
+                <!--<dxe:CheckEdit DockPanel.Dock="Top" Name="checkEditInverseVideo" Content="Inverse Video" HorizontalAlignment="Center" FontSize="20" Foreground="Black" />--><!--
+                <ToggleButton Name="toggleButtonInverseVideo" Content="Inverse Video" DockPanel.Dock="Top" Margin="0" Checked="toggleButtonInverseVideo_Checked" />
+
+                <DockPanel DockPanel.Dock="Top">
+                    <DockPanel DockPanel.Dock="Bottom">
+                        <StackPanel Orientation="Horizontal" Margin="5,0" HorizontalAlignment="Center">
+                            <Label Content=" Frames to Sum: " />
+                            <Label x:Name="labelSumming" Content="---" />
+                        </StackPanel>
+                    </DockPanel>
+                    --><!--<Slider x:Name="sliderIntegration" TickPlacement="BottomRight" ValueChanged="SliderIntegration_ValueChanged" Margin="20,5,20,0" Maximum="19" Value="-1" SmallChange="1" IsSnapToTickEnabled="True"/>-->
+                    <!--<dxe:TrackBarEdit Name="sliderSumming" Margin="20,5,20,0" EditValue="{Binding RelativeSource={RelativeSource AncestorType=dxen:PopupContentControl}, Path=Editor.Summing, Mode=TwoWay}" Orientation="Horizontal" Maximum="19" Value="0" TickFrequency="1" TickPlacement="BottomRight" LargeStep="1"/>--><!--
+                </DockPanel>
+
+                <DockPanel DockPanel.Dock="Top">
+                    <DockPanel DockPanel.Dock="Bottom">
+                        <StackPanel Orientation="Horizontal" Margin="5,0" HorizontalAlignment="Center">
+                            <Label Content=" Frames to Average: " />
+                            <Label x:Name="labelAveraging" Content="---" />
+                        </StackPanel>
+                    </DockPanel>
+                    --><!--<Slider x:Name="sliderIntegration" TickPlacement="BottomRight" ValueChanged="SliderIntegration_ValueChanged" Margin="20,5,20,0" Maximum="19" Value="-1" SmallChange="1" IsSnapToTickEnabled="True"/>-->
+                    <!--<dxe:TrackBarEdit Name="sliderAveraging" Margin="20,5,20,0" Orientation="Horizontal" Maximum="19" Value="0" TickFrequency="1" TickPlacement="BottomRight" LargeStep="1" EditValueChanged="sliderAveraging_EditValueChanged"/>--><!--
+                </DockPanel>
+            </DockPanel>
+        </ControlTemplate>
+
+		<dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True">
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn Header="ပစ္စည်းအမည်" FieldName="product_name" />
+                    <dxg:GridColumn Header="အရေအတွက်" FieldName="quantity" />
+                </dxg:GridControl.Columns>
+                <dxg:GridControl.View>
+                    <dxg:TableView
+                        Name="View" 
+                        ShowGroupedColumns="True" 
+                        AutoWidth="True" 
+                        AllowPerPixelScrolling="True" 
+                        ScrollAnimationDuration="0"
+                        ShowTotalSummary="True" 
+                        IsSynchronizedWithCurrentItem="False">
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <dxwui:PageAdornerControl BackCommand="{Binding BackCommand}" Header="{Binding PurchaseOrderCode}" FontSize="13" Foreground="#FF646464">
+            <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5,-7,0,0">
+                        <TextBlock Text="PURCHASE ORDER" FontSize="18" Foreground="#FF806464"/>
+                        <TextBlock Text="{Binding}" Margin="7,0,0,0" FontSize="16" Foreground="{StaticResource blueForegroundBrush}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+            <dxlc:LayoutControl Orientation="Vertical" Margin="65,-4,42,16">
+                <dxlc:LayoutControl.Resources>
+                    <Style TargetType="dxlc:LayoutItem">
+                        <Setter Property="ElementSpace" Value="38" />
+                    </Style>
+                    <Style x:Key="InnerLayoutGroup" TargetType="dxlc:LayoutGroup" />
+                    <Style TargetType="dxlc:LayoutGroup">
+                        <Setter Property="ItemSpace" Value="18" />
+                    </Style>
+                    <Style x:Key="VerticalLayoutGroup" TargetType="dxlc:LayoutGroup">
+                        <Setter Property="ItemSpace" Value="14" />
+                    </Style>
+                    <Style TargetType="dxe:TextEdit">
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    </Style>
+                </dxlc:LayoutControl.Resources>
+                <dxlc:LayoutGroup VerticalAlignment="Top" Margin="0,0,0,15">
+                    <dxlc:LayoutGroup.Resources>
+                        <Style TargetType="dxlc:LayoutItem">
+                            <Setter Property="ElementSpace" Value="43" />
+                        </Style>
+                    </dxlc:LayoutGroup.Resources>
+                    <dxlc:LayoutGroup Orientation="Vertical" Style="{StaticResource InnerLayoutGroup}" VerticalAlignment="Top">
+                        <dxlc:LayoutItem Label="PURCHASE ORDER CODE">
+                            <dxe:TextEdit IsEnabled="False">
+                                <dxe:TextEdit.Style>
+                                    <Style TargetType="{x:Type dxe:TextEdit}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Mode}">
+                                                <DataTrigger.Value>
+                                                    <mode:Mode>Add</mode:Mode>
+                                                </DataTrigger.Value>
+                                                <Setter Property="EditValue" Value="အလိုအလျောက်ထုတ်ပေးသည်။"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Mode}">
+                                                <DataTrigger.Value>
+                                                    <mode:Mode>Edit</mode:Mode>
+                                                </DataTrigger.Value>
+                                                <Setter Property="EditValue" Value="{Binding PurchaseOrderCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </dxe:TextEdit.Style>
+                            </dxe:TextEdit>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="COMPANY NAME">
+                            <dxe:ComboBoxEdit ValueMember="supplier_code" DisplayMember="supplier_name" EditValue="{Binding SupplierCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}" IsTextEditable="False" ItemsSource="{Binding Suppliers}">
+                            </dxe:ComboBoxEdit>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="ORDER DATE">
+                            <dxe:DateEdit />
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup Orientation="Vertical" Style="{StaticResource InnerLayoutGroup}" VerticalAlignment="Bottom">
+                        <dxlc:LayoutItem Label="PRODUCTS ARRIVAL">
+                            <dxe:ComboBoxEdit ValueMember="um_code" DisplayMember="um_shortname" EditValue="{Binding BuyingPriceUmCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}" IsTextEditable="False" ItemsSource="{Binding ProductArrivalOptions}" />
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutControl>
+        </dxwui:PageAdornerControl>
+
+    </Grid>
+
+        --><!--<Grid>
+        
+        <dxe:PopupBaseEdit Name="popupTestEdit" VerticalAlignment="Top" Width="150" Margin="17,22,336,0" 
+                           PopupContentTemplate="{StaticResource CameraSettingsPopupTemplate}"
+                           ShowSizeGrip="True"
+                           PopupFooterButtons="OkCancel"
+                           PopupOpened="PopupTestEdit_PopupOpened"
+                           AllowDefaultButton="False"
+                           >
+            <dxe:PopupBaseEdit.Buttons>
+                <dxe:ButtonInfo ButtonKind="Simple" GlyphKind="Apply" Command="{Binding Path=(dxe:ButtonEdit.OwnerEdit).OpenPopupCommand, RelativeSource={RelativeSource Self}}">
+                    <dxe:ButtonInfo.Content>
+                        <Image Source="{Binding BtnListImage}" />
+                    </dxe:ButtonInfo.Content>
+                </dxe:ButtonInfo>
+            </dxe:PopupBaseEdit.Buttons>
+        </dxe:PopupBaseEdit>
+        
+    </Grid>-->

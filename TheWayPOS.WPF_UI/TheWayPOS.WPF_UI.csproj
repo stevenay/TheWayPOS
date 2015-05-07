@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{103F4B38-7E52-4907-A5B7-678D1F7D2239}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TheWayPOS.WPF_UI</RootNamespace>
+    <AssemblyName>TheWayPOS.WPF_UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DevAV.v14.1.Model, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.DevAV.v14.1.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Images.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Charts.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Controls.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Core.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.LayoutControl.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.NavBar.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.PivotGrid.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Ribbon.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v14.1.UI, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.0.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Common\CommonResources.Designer.cs" />
+    <Compile Include="Common\Util\CriteriaOperatorToExpressionConverter.cs" />
+    <Compile Include="Common\Util\ImageLayoutPanel.cs" />
+    <Compile Include="Common\Util\IntToDoubleConverter.cs" />
+    <Compile Include="Common\Util\MyanNumToEngNumConverter.cs" />
+    <Compile Include="Common\Util\NullStringToMessage.cs" />
+    <Compile Include="Common\Util\ProductUmApplyCountConverter.cs" />
+    <Compile Include="Common\Util\TextSingleLineConverter.cs" />
+    <Compile Include="Common\ViewModel\FilterTreeViewModelBase.cs" />
+    <Compile Include="Common\ViewModel\SingleObjectViewModelBase.cs" />
+    <Compile Include="ViewModel\ProductCategory\ProductCategoryCollectionViewModel.cs" />
+    <Compile Include="ViewModel\ProductCategory\ProductCategoryViewModel.cs" />
+    <Compile Include="ViewModel\PurchaseOrder\PurchaseOrderDetailCollectionViewModel.cs" />
+    <Compile Include="ViewModel\PurchaseOrder\PurchaseOrderDetailUmCollectionViewModel.cs" />
+    <Compile Include="ViewModel\PurchaseOrder\PurchaseOrderDetailUmViewModel.cs" />
+    <Compile Include="ViewModel\PurchaseOrder\PurchaseOrderDetailViewModel.cs" />
+    <Compile Include="ViewModel\PurchaseOrder\PurchaseOrderHeaderViewModel.cs" />
+    <Compile Include="ViewModel\Supplier\SupplierCollectionViewModel.cs" />
+    <Compile Include="ViewModel\Supplier\SupplierViewModel.cs" />
+    <Compile Include="ViewModel\Um\UmCollectionViewModel.cs" />
+    <Compile Include="View\Interface\CustomFilterContainerBehavior.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\Util\StringToImageConverter.cs" />
+    <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Common\ViewModel\CustomFilterViewModel.cs" />
+    <Compile Include="Common\ViewModel\FilterTreeViewModel.cs" />
+    <Compile Include="Common\View\AppBarCancelClosingBehavior.cs" />
+    <Compile Include="Common\View\DeleteMarginFromParentBorderBehavior.cs" />
+    <Compile Include="Common\View\DpiResizingPanel.cs" />
+    <Compile Include="View\Interface\IModelDialog.cs" />
+    <Compile Include="View\Interface\INotifyDirtyData.cs" />
+    <Compile Include="View\Interface\ISingleObjectViewModel.cs" />
+    <Compile Include="Service\CustomFilterContainerService.cs" />
+    <Compile Include="Common\ViewModel\CollectionViewModel.cs" />
+    <Compile Include="Service\IActualFilterCriteriaService.cs" />
+    <Compile Include="ViewModel\IActualFilterCriteriaService.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Common\ViewModel\Mode.cs" />
+    <Compile Include="ViewModel\Product\ProductCollectionViewModel.cs" />
+    <Compile Include="ViewModel\ProductUm\ProductUmCollectionViewModel.cs" />
+    <Compile Include="ViewModel\ProductUm\ProductUmViewModel.cs" />
+    <Compile Include="ViewModel\Product\ProductViewModel.cs" />
+    <Compile Include="ViewModel\TileViewModel.cs" />
+    <Compile Include="ViewModel\Um\UmViewModel.cs" />
+    <Compile Include="View\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductCategoryCollectionView.xaml.cs">
+      <DependentUpon>ProductCategoryCollectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductCategoryView.xaml.cs">
+      <DependentUpon>ProductCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductCollectionView.xaml.cs">
+      <DependentUpon>ProductCollectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductUmView.xaml.cs">
+      <DependentUpon>ProductUmView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductView.xaml.cs">
+      <DependentUpon>ProductView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductViewDialog.cs" />
+    <Compile Include="View\PurchaseOrderView.xaml.cs">
+      <DependentUpon>PurchaseOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StaticFiltersPanel.xaml.cs">
+      <DependentUpon>StaticFiltersPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SupplierCollectionView.xaml.cs">
+      <DependentUpon>SupplierCollectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SupplierView.xaml.cs">
+      <DependentUpon>SupplierView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UmCollectionView.xaml.cs">
+      <DependentUpon>UmCollectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UmView.xaml.cs">
+      <DependentUpon>UmView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Style\ListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Style\MainMenuStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Style\ValidationStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProductCategoryCollectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProductCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProductCollectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProductUmView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProductView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PurchaseOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StaticFiltersPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SupplierCollectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SupplierView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UmCollectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UmView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Common\CommonResources.resx" />
+    <EmbeddedResource Include="Properties\Licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TheWayPOS.BL\TheWayPOS.BL.csproj">
+      <Project>{d6622fd9-2770-476b-a900-2a6d4da724c1}</Project>
+      <Name>TheWayPOS.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TheWayPOS.Entities\TheWayPOS.Entities.csproj">
+      <Project>{fb066ce7-0606-439e-b3bb-53b280cbaa52}</Project>
+      <Name>TheWayPOS.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Customers.png" />
+    <Resource Include="Images\Menu\Dashboard.png" />
+    <Resource Include="Images\Menu\Employees.png" />
+    <Resource Include="Images\Menu\Opportunities.png" />
+    <Resource Include="Images\Menu\Products.png" />
+    <Resource Include="Images\Menu\Sales.png" />
+    <Resource Include="Images\Menu\Tasks.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AppIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Window\navButtonClose.Glyph.png" />
+    <Resource Include="Images\Window\navButtonHelp.Glyph.png" />
+    <Resource Include="Images\Window\navButtonHome.Glyph.png" />
+    <Resource Include="Images\Window\navButtonSettings.Glyph.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Arrow\ArrowLeft.png" />
+    <Resource Include="Images\Arrow\ArrowRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Priority\HighPriority.png" />
+    <Resource Include="Images\Priority\LowPriority.png" />
+    <Resource Include="Images\Priority\MediumPriority.png" />
+    <Resource Include="Images\Priority\NormalPriority.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\List.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Company.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Shop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\InvoiceList.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Subway.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Hand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\BankNote.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Pen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Menu\Configure.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Toolbar\Cancel.png" />
+    <Resource Include="Images\Toolbar\CustomFilter.png" />
+    <Resource Include="Images\Toolbar\Delete.png" />
+    <Resource Include="Images\Toolbar\Edit.png" />
+    <Resource Include="Images\Toolbar\MailMerge.png" />
+    <Resource Include="Images\Toolbar\MapView.png" />
+    <Resource Include="Images\Toolbar\Meeting.png" />
+    <Resource Include="Images\Toolbar\New.png" />
+    <Resource Include="Images\Toolbar\Note.png" />
+    <Resource Include="Images\Toolbar\OrderList.png" />
+    <Resource Include="Images\Toolbar\PivotTable.png" />
+    <Resource Include="Images\Toolbar\Print.png" />
+    <Resource Include="Images\Toolbar\Reports.png" />
+    <Resource Include="Images\Toolbar\SalesMap.png" />
+    <Resource Include="Images\Toolbar\Save.png" />
+    <Resource Include="Images\Toolbar\SaveAndClose.png" />
+    <Resource Include="Images\Toolbar\Settings.png" />
+    <Resource Include="Images\Toolbar\SortAZ.png" />
+    <Resource Include="Images\Toolbar\SortZA.png" />
+    <Resource Include="Images\Toolbar\Task.png" />
+    <Resource Include="Images\Toolbar\ZoomIn.png" />
+    <Resource Include="Images\Toolbar\ZoomOut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ViewModel\PurchaseOrder\backup.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

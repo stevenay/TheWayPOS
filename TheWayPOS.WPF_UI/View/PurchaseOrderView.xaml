@@ -1,0 +1,348 @@
+﻿ <UserControl x:Class="TheWayPOS.WPF_UI.View.PurchaseOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:viewmodel="clr-namespace:TheWayPOS.WPF_UI.ViewModel"
+             xmlns:common="clr-namespace:TheWayPOS.WPF_UI.Common.Util"
+             xmlns:cview="clr-namespace:TheWayPOS.WPF_UI.Common.View"
+             xmlns:view="clr-namespace:TheWayPOS.WPF_UI.View"
+             xmlns:mode="clr-namespace:TheWayPOS.Entities;assembly=TheWayPOS.Entities"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <dxmvvm:Interaction.Behaviors>
+        <dxwui:WinUIMessageBoxService/>
+
+        <dx:WindowedDocumentUIService WindowType="dxwui:WinUIDialogWindow">
+            <dx:WindowedDocumentUIService.WindowStyle>
+                <Style TargetType="dxwui:WinUIDialogWindow">
+                    <Setter Property="ShowTitle" Value="False"/>
+                </Style>
+            </dx:WindowedDocumentUIService.WindowStyle>
+        </dx:WindowedDocumentUIService>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnLoadedCommand}" />
+    </dxmvvm:Interaction.Behaviors>
+
+    <UserControl.Resources>
+        <common:IntToDoubleConverter x:Key="intToDoubleConverter"/>
+        <common:MyanNumToEngNumConverter x:Key="MyanNumtoEngNumConverter"/>
+        <common:ProductUmApplyCountConverter x:Key="ProductUmApplyCountConverter"/>
+        <dxmvvm:ObjectToObjectConverter x:Key="selectionStateToVisibilityConverter" DefaultTarget="Visible">
+            <dxmvvm:MapItem Source="None" Target="Hidden"/>
+        </dxmvvm:ObjectToObjectConverter>
+        <Style x:Key="cellButton" TargetType="Button">
+            <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource AncestorType=dxg:RowControl}, Path=SelectionState, Converter={StaticResource selectionStateToVisibilityConverter}}" />
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Width" Value="71" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="AppBarButtonStyle" TargetType="dxwui:AppBarButton">
+            <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <ControlTemplate x:Key="popupContentTemplate">
+            <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True">
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn Header="ပစ္စည်းအမည်" FieldName="product_name" />
+                    <!--<dxg:GridColumn Header="အရေအတွက်" FieldName="quantity" />-->
+                </dxg:GridControl.Columns>
+                <dxg:GridControl.View>
+                    <dxg:TableView
+                        Name="View"
+                        AutoWidth="True" 
+                        AllowPerPixelScrolling="True" 
+                        ScrollAnimationDuration="0"
+                        IsSynchronizedWithCurrentItem="False">
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+        </ControlTemplate>
+        <ControlTemplate x:Key="pbeContentTemplate">    
+            <dxg:GridControl x:Name="PART_GridControl1">
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn FieldName="UmShortName" />
+                </dxg:GridControl.Columns>
+                <dxg:GridControl.View>
+                    <dxg:TableView
+                        Name="View"
+                        AutoWidth="True" 
+                        AllowPerPixelScrolling="True" 
+                        ScrollAnimationDuration="0"
+                        IsSynchronizedWithCurrentItem="False">
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <dxwui:PageAdornerControl BackCommand="{Binding BackCommand}" Header="{Binding PurchaseOrderCode}" FontSize="13" Foreground="#FF646464">
+            <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5,-7,0,0">
+                        <TextBlock Text="PURCHASE ORDER" FontSize="18" Foreground="#FF806464"/>
+                        <TextBlock Text="{Binding}" Margin="7,0,0,0" FontSize="16" Foreground="{StaticResource blueForegroundBrush}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+            <dxlc:LayoutControl Orientation="Vertical" Margin="65,-4,42,16">
+                <dxlc:LayoutControl.Resources>
+                    <Style TargetType="dxlc:LayoutItem">
+                        <Setter Property="ElementSpace" Value="38" />
+                    </Style>
+                    <Style x:Key="InnerLayoutGroup" TargetType="dxlc:LayoutGroup" />
+                    <Style TargetType="dxlc:LayoutGroup">
+                        <Setter Property="ItemSpace" Value="18" />
+                    </Style>
+                    <Style x:Key="VerticalLayoutGroup" TargetType="dxlc:LayoutGroup">
+                        <Setter Property="ItemSpace" Value="14" />
+                    </Style>
+                    <Style TargetType="dxe:TextEdit">
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    </Style>
+                </dxlc:LayoutControl.Resources>
+                <dxlc:LayoutGroup VerticalAlignment="Top" Margin="0,0,0,15">
+                    <dxlc:LayoutGroup.Resources>
+                        <Style TargetType="dxlc:LayoutItem">
+                            <Setter Property="ElementSpace" Value="43" />
+                        </Style>
+                    </dxlc:LayoutGroup.Resources>
+                    <dxlc:LayoutGroup Orientation="Vertical" Style="{StaticResource InnerLayoutGroup}" VerticalAlignment="Top">
+                        <dxlc:LayoutItem Label="PURCHASE ORDER CODE">
+                            <dxe:TextEdit Name="txtProductCode" IsEnabled="False">
+                                <dxe:TextEdit.Style>
+                                    <Style TargetType="{x:Type dxe:TextEdit}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Mode}">
+                                                <DataTrigger.Value>
+                                                    <mode:Mode>Add</mode:Mode>
+                                                </DataTrigger.Value>
+                                                <Setter Property="EditValue" Value="အလိုအလျောက်ထုတ်ပေးသည်။"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Mode}">
+                                                <DataTrigger.Value>
+                                                    <mode:Mode>Edit</mode:Mode>
+                                                </DataTrigger.Value>
+                                                <Setter Property="EditValue" Value="{Binding PurchaseOrderCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </dxe:TextEdit.Style>
+                            </dxe:TextEdit>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="COMPANY NAME">
+                            <!--<dxe:ComboBoxEdit ValueMember="supplier_code" DisplayMember="supplier_name" EditValue="{Binding SupplierCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}" IsTextEditable="True" AutoComplete="True" ItemsSource="{Binding Suppliers}" SelectedIndexChanged="ComboBoxEdit_SelectedIndexChanged">
+                                <dxmvvm:Interaction.Behaviors>
+                                    <dxmvvm:EventToCommand EventName="SelectedIndexChanged" Command="{Binding AddNewOrderDetail}" />
+                                </dxmvvm:Interaction.Behaviors>
+                            </dxe:ComboBoxEdit>-->
+                            <ComboBox Name="cboSupplier" Padding="5 6 0 0" Height="34" IsEditable="True" IsTextSearchEnabled="True" SelectedValue="{Binding SupplierCode}" SelectedValuePath="supplier_code" DisplayMemberPath="supplier_name" ItemsSource="{Binding Suppliers}" SelectionChanged="cboSupplier_SelectedIndexChanged">
+                            </ComboBox>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="ORDER DATE">
+                            <dxe:DateEdit />
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup Orientation="Vertical" Style="{StaticResource InnerLayoutGroup}" VerticalAlignment="Bottom">
+                        <dxlc:LayoutItem Label="PRODUCTS ARRIVAL">
+                            <dxe:ComboBoxEdit ValueMember="product_arrival_code" DisplayMember="product_arrival_description" EditValue="{Binding ProductArrivalCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}" IsTextEditable="False" ItemsSource="{Binding ProductArrivals}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="SUPPLIED PRODUCTS">
+                            <!--<dxe:ComboBoxEdit ValueMember="product_code" DisplayMember="product_name" EditValue="{Binding ProductCode, ValidatesOnDataErrors=True, NotifyOnValidationError=True, NotifyOnSourceUpdated=True}" IsTextEditable="False" ItemsSource="{Binding SuppliedProducts}" />-->
+                            <!--<ComboBox Padding="5 6 0 0" Height="34" IsEditable="True" IsTextSearchEnabled="True" SelectedValuePath="product_code"  DisplayMemberPath="product_name" ItemsSource="{Binding SuppliedProducts}"  />-->
+                            <dxg:LookUpEdit
+                                    Name="LookUpEditProductSearch1"
+                                    DisplayMember="product_name"
+                                    AutoPopulateColumns="False"
+                                    ValueMember="product_code"
+                                    FindButtonPlacement="Popup"
+                                    Height="38"
+                                    PopupContentTemplate="{StaticResource popupContentTemplate}"
+                                    EditValue="{Binding SupplierCode, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemsSource="{Binding SuppliedProducts}">
+                                <dxg:LookUpEdit.StyleSettings>
+                                    <dxg:SearchLookUpEditStyleSettings/>
+                                </dxg:LookUpEdit.StyleSettings>
+                            </dxg:LookUpEdit>
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup VerticalAlignment="Stretch" Orientation="Vertical" View="Tabs" x:Name="tabs" MinHeight="400">
+                    <dxlc:LayoutGroup.TabsStyle>
+                        <Style TargetType="dx:DXTabControl">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="View">
+                                <Setter.Value>
+                                    <dx:TabControlScrollView HeaderLocation="None" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </dxlc:LayoutGroup.TabsStyle>
+                    <dxlc:LayoutGroup.Resources>
+                        <Style TargetType="dxg:TableView">
+                            <Setter Property="AutoWidth" Value="True"/>
+                            <Setter Property="ShowIndicator" Value="False"/>
+                            <Setter Property="ShowGroupPanel" Value="False"/>
+                            <Setter Property="AllowEditing" Value="False"/>
+                            <Setter Property="AllowBestFit" Value="True"/>
+                        </Style>
+                        <Style TargetType="dxg:GridColumn">
+                            <Setter Property="HorizontalHeaderContentAlignment" Value="Center"/>
+                        </Style>
+                    </dxlc:LayoutGroup.Resources>
+                    <dxlc:LayoutItem DataContext="{Binding PurchaseOrderDetailCollection}">
+                        <!--<dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnLoadedCommand}" />
+                        </dxmvvm:Interaction.Behaviors>-->
+                        <dxg:GridControl Name="gridControlPod" ItemsSource="{Binding Entities, Mode=TwoWay}" SelectedItem="{Binding SelectedEntity}" HorizontalAlignment="Left" IsEnabled="True" PreviewKeyDown="gridControlPurchaseOrderDetails_PreviewKeyDown">
+                            <dxg:GridControl.View>
+                                <dxg:TableView
+                                    EnterMoveNextColumn="True"   
+                                    Name="tableViewPod"
+                                    AllowMoveColumnToDropArea="False"
+                                    AutoWidth="True"
+                                    IsColumnMenuEnabled="True" 
+                                    NavigationStyle="Cell"
+                                    VerticalScrollbarVisibility="Auto"
+                                    HorizontalAlignment="Center"
+                                    AllowEditing="True"
+                                    CellValueChanging="TableView_CellValueChanging"
+                                    NewItemRowPosition="None"
+                                    ValidateRow="gridControlPod_ValidateRow"
+                                    InitNewRow="PurchaseOrderDetailsView_InitNewRow">
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
+                            
+                            <dxg:GridControl.Columns>
+                                
+                                <dxg:GridColumn FieldName="ProductCode" Header="ပစ္စည်းအမည်" AllowEditing="True" ReadOnly="False" VisibleIndex="1">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxg:LookUpEditSettings
+                                            Name="LookUpEditProductSearch"
+                                            
+                                            DisplayMember="product_name"
+                                            ValueMember="product_code"
+                                            AutoPopulateColumns="False"
+                                            FindButtonPlacement="Popup"
+                                            IsPopupAutoWidth="False"
+                                            PopupWidth="300"
+                                            PopupContentTemplate="{StaticResource popupContentTemplate}"
+                                            ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=1}, Path=DataContext.SuppliedProducts}">
+                                            <dxg:LookUpEditSettings.StyleSettings>
+                                                <dxg:SearchLookUpEditStyleSettings/>
+                                            </dxg:LookUpEditSettings.StyleSettings>
+                                        </dxg:LookUpEditSettings>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="SupplierCode" Header="ကုန်ထုတ်လုပ်သူ" AllowEditing="True" VisibleIndex="2">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:ComboBoxEditSettings 
+                                                            x:Name="PART_Editor" 
+                                                            DisplayMember="supplier_name" 
+                                                            ValueMember="supplier_code"
+                                                            ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=1}, Path=DataContext.Manufacturers}"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn Header="အရေအတွက်" FieldName="Quantity" AllowEditing="True" VisibleIndex="3" >
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:PopupBaseEditSettings>
+                                            <dxe:PopupBaseEditSettings.PopupContentTemplate>
+                                                <ControlTemplate>
+                                                    <dxg:GridControl x:Name="PART_GridControl1"
+                                                                     MaxHeight="600"
+                                                                     ItemsSource="{Binding Path=RowData.Row.PurchaseOrderDetailUmCollection.Entities, Mode=TwoWay}">
+                                                        <dxg:GridControl.Columns>
+                                                            <dxg:GridColumn FieldName="UmShortName" />
+                                                            <dxg:GridColumn FieldName="Quantity">
+                                                                <dxg:GridColumn.EditSettings>
+                                                                    <dxe:TextEditSettings
+                                                                            x:Name="txtOrderDetailQuantity" />
+                                                                </dxg:GridColumn.EditSettings>
+                                                            </dxg:GridColumn>
+                                                        </dxg:GridControl.Columns>
+                                                        <dxg:GridControl.View>
+                                                            <dxg:TableView
+                                                                Name="View"
+                                                                AutoWidth="True" 
+                                                                AllowPerPixelScrolling="True"
+                                                                ScrollAnimationDuration="0"
+                                                                IsSynchronizedWithCurrentItem="False"
+                                                                AllowEditing="True">
+                                                            </dxg:TableView>
+                                                        </dxg:GridControl.View>
+                                                    </dxg:GridControl>
+                                                </ControlTemplate>
+                                            </dxe:PopupBaseEditSettings.PopupContentTemplate>
+                                        </dxe:PopupBaseEditSettings>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn Header="Discount %" Binding="{Binding Path=DiscountPercentage,Converter={StaticResource MyanNumtoEngNumConverter},Mode=TwoWay}" AllowEditing="True" VisibleIndex="4">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings HorizontalContentAlignment="Right"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn Header="ဈေးနှုန်း" Binding="{Binding Path=BuyingPrice,Converter={StaticResource MyanNumtoEngNumConverter},Mode=TwoWay}" AllowEditing="True" VisibleIndex="5">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings HorizontalContentAlignment="Right"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn Header="ကျသင့်ငွေ" Binding="{Binding Path=LineTotal,Converter={StaticResource MyanNumtoEngNumConverter},Mode=TwoWay}" AllowEditing="True" VisibleIndex="6">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings HorizontalContentAlignment="Right"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                            
+                            </dxg:GridControl.Columns>
+                        </dxg:GridControl>
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutControl>
+        </dxwui:PageAdornerControl>
+
+        <dxwui:AppBar Grid.Row="1" IsOpen="True" ItemSpacing="5" IsBackButtonEnabled="False" IsExitButtonEnabled="False">
+            <dxmvvm:Interaction.Behaviors>
+                <cview:AppBarCancelClosingBehavior/>
+            </dxmvvm:Interaction.Behaviors>
+            <dxwui:AppBarButton Cursor="Hand" Command="{Binding UpdateCommand}" Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Toolbar/Save.png">
+                <dxwui:AppBarButton.Style>
+                    <Style TargetType="{x:Type dxwui:AppBarButton}" BasedOn="{StaticResource AppBarButtonBaseStyle}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Mode}">
+                                <DataTrigger.Value>
+                                    <mode:Mode>Add</mode:Mode>
+                                </DataTrigger.Value>
+                                <Setter Property="Label" Value="Add"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Mode}">
+                                <DataTrigger.Value>
+                                    <mode:Mode>Edit</mode:Mode>
+                                </DataTrigger.Value>
+                                <Setter Property="Label" Value="Save"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </dxwui:AppBarButton.Style>
+            </dxwui:AppBarButton>
+            <dxwui:AppBarButton Label="Reset" Cursor="Hand" Command="{Binding CancelCommand}" Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Toolbar/Cancel.png"/>
+            <dxwui:AppBarSeparator/>
+            <dxwui:AppBarButton Label="Reports" Cursor="Hand" Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Toolbar/Reports.png" Command="{Binding ShowPrintCommand}" CommandParameter="Profile" />
+            <dxwui:AppBarSeparator/>
+            <dxwui:AppBarButton Label="DeActivate" Cursor="Hand" Glyph="pack://application:,,,/TheWayPOS.WPF_UI;component/Images/Toolbar/Delete.png" Command="{Binding DeleteCommand}"/>
+        </dxwui:AppBar>
+    </Grid>
+</UserControl>

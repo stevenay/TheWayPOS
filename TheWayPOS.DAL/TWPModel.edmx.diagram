@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e578bd7f9a0f4b1187100cbd12566e1f" Name="Diagram1">
+        <EntityTypeShape EntityType="TWPDbContext.ProductCategory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TWPDbContext.Product" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="TWPDbContext.Products_Ums" Width="1.5" PointX="5.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TWPDbContext.PurchaseOrderDetail" Width="2" PointX="7.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TWPDbContext.PurchaseOrderHeader" Width="2.25" PointX="5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TWPDbContext.SupplierCategory" Width="1.5" PointX="1.5" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TWPDbContext.Supplier" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TWPDbContext.sysdiagram" Width="1.5" PointX="5.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TWPDbContext.Um" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="TWPDbContext.FK_Products_ProductCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_Products_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_Products_Um" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_Products_Um_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_PurchaseOrderDetails_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_Products_Um_Um" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_Products_Ums_Um" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_PurchaseOrderDetails_PurchaseOrderHeaders" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_PurchaseOrderDetails_Um" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_PurchaseOrderHeaders_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_Suppliers_SupplierCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="TWPDbContext.FK_Um_Um" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TWPDbContext.ProductArrival" Width="2.25" PointX="8.375" PointY="0.75" />
+        <AssociationConnector Association="TWPDbContext.FK_PurchaseOrderHeaders_ProductArrivals" />
+        <EntityTypeShape EntityType="TWPDbContext.PurchaseOrderDetail_Ums" Width="2.375" PointX="10.5" PointY="5.125" />
+        <AssociationConnector Association="TWPDbContext.FK_PurchaseOrderDetail_Ums_Products_Ums" />
+        <AssociationConnector Association="TWPDbContext.FK_PurchaseOrderDetail_Ums_PurchaseOrderDetails" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
